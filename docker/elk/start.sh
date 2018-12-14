@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+ docker run -itd --rm -p9200:9200 -p9300:9300 --name es -v /opt/data/elasticsearch/logs:/usr/share/elasticsearch/logs -v /opt/data/elasticsearch/data:/usr/share/elasticsearch/data  -e "discovery.type=single-node" elasticsearch:6.5.1
+ docker run -itd --rm -p5601:5601             --name kb -v /opt/data/kinaba/config:/usr/share/kinaba/config -v /opt/data/kinaba/data:/usr/share/kinaba/data -e ELASTICSEARCH_URL=http://192.168.31.210:9200 kibana:6.5.1
+ docker run -itd --rm -p5044:5044 -p9600:9600 --name ls -v /opt/data/logstash/config/:/usr/share/logstash/config/ -v /opt/data/logstash/pipeline/:/usr/share/logstash/pipeline/ -v /opt/data/logstash/data/:/usr/share/logstash/data/ logstash:6.5.1
+ docker run -itd --rm                         --name fb -v /var/logs/:/var/logs -v /root/filebeat/filebeat.yml:/etc/filebeat/filebeat.yml -v /usr/share/filebeat/data/:/usr/share/filebeat/bin/data  filebeat:base

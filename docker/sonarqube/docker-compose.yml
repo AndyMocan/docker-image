@@ -1,0 +1,18 @@
+version: "3.1"
+services:
+  sonarqube:
+    image: sonarqube
+    container_name: sonarqube
+    restart: always
+    ports:
+    - "9999:9000"
+    environment:
+    - SONARQUBE_JDBC_URL=jdbc:mysql://192.168.31.200:3306/sonar?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useConfigs=maxPerformance
+    - SONARQUBE_JDBC_USERNAME=root
+    - SONARQUBE_JDBC_PASSWORD=Alldo807!
+    volumes:
+    - /usr/local/docker/sonar/conf:/opt/sonarqube/conf
+    - /usr/local/docker/sonar/data:/opt/sonarqube/data
+    - /usr/local/docker/sonar/extensions:/opt/sonarqube/extensions
+    - /usr/local/docker/sonar/plugins:/opt/sonarqube/lib/bundled-plugins`
+

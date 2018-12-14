@@ -1,0 +1,24 @@
+version: '2'
+services:
+  tracker:
+    image: season/fastdfs:1.2
+    restart: always
+    volumes:
+    - "/etc/timezone:/etc/timezone:ro"
+    - "/etc/localtime:/etc/localtime:ro"
+    - "/usr/local/docker/fastdfs/tracker_data:/fastdfs/tracker/data"
+    network_mode: "host"
+    command: "tracker"
+  storage:
+    image: season/fastdfs:1.2
+    restart: always
+    volumes:
+    - "/etc/timezone:/etc/timezone:ro"
+    - "/etc/localtime:/etc/localtime:ro"
+    - "/usr/local/docker/fastdfs/storage_base_path:/fastdfs/storage/data"
+    - "/usr/local/docker/fastdfs/store_path0:/fastdfs/store_path"
+    environment:
+      TRACKER_SERVER: "192.168.174.129:22122"
+    network_mode: "host"
+    command: "storage"
+

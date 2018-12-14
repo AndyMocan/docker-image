@@ -1,0 +1,11 @@
+version: '3.1'
+services:
+  fb:
+    image: filebeat:base
+    restart: always
+    container_name: fb
+    privileged: true
+    volumes:
+      - /var/logs/:/var/logs/
+      - /root/filebeat/filebeat.yml:/etc/filebeat/filebeat.yml
+      - /usr/share/filebeat/data/:/usr/share/filebeat/bin/data/

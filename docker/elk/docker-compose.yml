@@ -1,0 +1,39 @@
+version: '3.1'
+services:
+  es:
+    image: elasticsearch:6.5.1
+      restart: always
+      container_name: es
+      privileged: true
+      ports:
+        - 9200:9200
+        - 9300:9300
+      volumes:
+        - /opt/data/elasticsearch/logs:/usr/share/elasticsearch/logs
+        - /opt/data/elasticsearch/data:/usr/share/elasticsearch/data
+      environment:
+        - discovery.type=single-node
+  kb:
+    image: kibana:6.5.1
+    restart: always
+    container_name: kb
+    privileged: true
+    ports:
+      - 5601:5601
+    volumes:
+      - /opt/data/kinaba/config:/usr/share/kinaba/config
+      - /opt/data/kinaba/data:/usr/share/kinaba/data
+    environment:
+      - ELASTICSEARCH_URL=http://192.168.31.210:9200
+  ls:
+    image: logstash:6.5.1
+    restart: always
+    container_name: ls
+    privileged: true
+    ports:
+      - 5044:5044
+      - 9600:9600
+    volumes:
+      - /opt/data/logstash/config/:/usr/share/logstash/config/
+      - /opt/data/logstash/pipeline/:/usr/share/logstash/pipeline/
+      - /opt/data/logstash/data/:/usr/share/logstash/data/

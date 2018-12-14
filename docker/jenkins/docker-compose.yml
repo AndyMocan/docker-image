@@ -1,0 +1,21 @@
+version: '3.1'
+services:
+  jenkins:
+    image: jenkins:2.138.1
+    build:
+      context: environment
+      dockerfile: Dockerfile
+    restart: always
+    container_name: jenkins
+    privileged: true
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - /usr/local/docker/jenkins:/root/.jenkins/
+    - /etc/docker:/etc/docker
+    - /usr/maven/conf/:/usr/local/maven/apache-maven-3.5.3/conf/
+    - /root/.m2:/root/.m2
+    - /usr/local/docker/sonar-scanner/conf:/usr/local/sonar-scanner/conf
+    - /usr/local/tomcat/webapps:/usr/local/tomcat/webapps
+    - /usr/local/tomcat/log:/usr/local/tomcat/log
+    ports:
+    - 9090:8080

@@ -1,0 +1,28 @@
+version: '3.1'
+services:
+  apollo-config:
+    build: config
+    container_name: apollo-config
+    restart: always
+    ports:
+    - 9001:9001
+    network_mode: host
+  apollo-admin:
+    build: admin
+    container_name: apollo-admin
+    restart: always
+    ports:
+    - 9002:9002
+    network_mode: host
+    depends_on:
+    - apollo-config
+  apollo-portal:
+    build: portal
+    container_name: apollo-portal
+    restart: always
+    ports:
+    - "9003:9003"
+    network_mode: host
+    depends_on:
+    - apollo-config
+    - apollo-admin
